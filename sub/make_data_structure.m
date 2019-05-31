@@ -39,6 +39,6 @@ isum=sum([mcd.myd.daten] - [mcd.mod.daten]);
         disp('MOD and MYD mis-match')
     end
 
- disp([num2str(length(mod)), ' MOD10A1 dates found' ])
- disp([num2str(length(myd)), ' MYD10A1 dates found' ])
- disp([num2str(length(mcd)), ' MCD43A3 dates found' ])
+ disp([num2str(length(mod)), ' MOD10A1 dates found'])
+ disp([num2str(length(myd)), ' MYD10A1 dates found'])
+ disp([num2str(length(mcd43)), ' MCD43A3 dates found'])

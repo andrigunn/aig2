@@ -26,7 +26,11 @@ for i = 1:length(uqYears)
     ji = 0;
 
     for k = 1:length(Dsubsub)
+        if ispc
         ncdata = ncread([Dsubsub(k).folder,'\',Dsubsub(k).name], ncvar);
+        elseif isunix
+        ncdata = ncread([Dsubsub(k).folder,'/',Dsubsub(k).name], ncvar);
+        end
         ji = ji+1;
         MS(:,:,ji) = ncdata;
     end

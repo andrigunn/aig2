@@ -13,8 +13,11 @@ ji = 0;
 for i = 1:length(di)
     
     if file_type == 'nc4'
+        if ispc
         data = ncread([di(i).folder,'\',di(i).name], ncvar);
-        
+        elseif isunix
+        data = ncread([di(i).folder,'/',di(i).name], ncvar);
+        end
     elseif file_type == 'hdf'
         
     elseif file_type == 'mat'
