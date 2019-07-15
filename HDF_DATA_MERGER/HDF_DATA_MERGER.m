@@ -10,8 +10,7 @@ days2merge = 5; %=> Number of days to merge forward and backward (For a 10 day t
 data_structure = mod;
 GRID_NAME= 'MOD_Grid_Snow_500m'
 DATAFIELD_NAME='Snow_Albedo_Daily_Tile'
-data_write_dir = 'D:\aig\data\mod_merge\'
-data_write_dir2 = 'D:\aig\data\mod_merge_cc\'
+   
 %%
 clear DATA_C R center_date
 close all

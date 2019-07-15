@@ -25,7 +25,11 @@ for i = 1:length(uqYears)
         ji = 0;
         for j = 1:length(Dsubsub); % Open individual files in subsubstack, ie for each month
             disp(['Processing year: ',num2str(uqYears(i)),' Month: ',num2str(uqMonths(k)),' Day: ',num2str(Dsubsub(j).day)])
+            if ispc
             ncdata = ncread([Dsubsub(j).folder,'\',Dsubsub(j).name], ncvar);
+            elseif isunix
+            ncdata = ncread([Dsubsub(j).folder,'/',Dsubsub(j).name], ncvar);
+            end
             
             ji = ji+1;
             MS(:,:,ji) = ncdata;

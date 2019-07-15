@@ -1,15 +1,25 @@
-function PLOT_Melt_Season_ts(T,img_dir,printer,img_name)
-% Plot melt season averages for all glaciers
-close all
-%T = TMS;
-h = figure('Position', [50, 100, 900, 1200]), hold on
-sgtitle(['Melt Season Average Albedo (',img_name,')'])
+function PLOT_Month_Mean_ts(T,img_dir,printer,img_name,months_remove)
+%% Plot melt season averages for all glaciers
+% close all
+% T = TMM;
+% months_remove = [1,2,3,4,10,11,12]
+% Filter months from stack
+for i = 1:length(months_remove)
+   
+    ix = find([T.Month] == months_remove(i))
+    T(ix,:)=[];
+    
+end
 
+%%
+h = figure('Position', [50, 100, 900, 1200]), hold on
+sgtitle(['Month Mean Average Albedo (',img_name,')'])
+%
 C = [0.75 0.75 0.75];
 lw = 1.2;
 
 subplot(4,3,1)
-plot(T.Year,T.Vatnajokull,'k','LineWidth',lw)
+plot(T.dn,T.Vatnajokull,'k','LineWidth',lw)
 %xlabel('Year'), 
 ylabel('Melt Season Average Albedo'), title('Vatnajökull')
 set(gcf,'color','w');
@@ -19,7 +29,7 @@ set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YM
 set(gca,'xticklabel',{[]})
  
 subplot(4,3,2)
-plot(T.Year,T.Hofsjokull,'k','LineWidth',lw)
+plot(T.dn,T.Hofsjokull,'k','LineWidth',lw)
 %xlabel('Year'), ylabel('Melt Season Average Albedo'), 
 title('Hofsjökull')
 set(gcf,'color','w');
@@ -29,7 +39,7 @@ set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YM
 set(gca,'xticklabel',{[]})
 
 subplot(4,3,3)
-plot(T.Year,T.Langjokull,'k','LineWidth',lw)
+plot(T.dn,T.Langjokull,'k','LineWidth',lw)
 %xlabel('Year'), ylabel('Melt Season Average Albedo'), 
 title('Langjökull')
 set(gcf,'color','w');
@@ -39,7 +49,7 @@ set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YM
 set(gca,'xticklabel',{[]})
 
 subplot(4,3,4)
-plot(T.Year,T.Myrdalsjokull,'k','LineWidth',lw)
+plot(T.dn,T.Myrdalsjokull,'k','LineWidth',lw)
 %xlabel('Year'), 
 ylabel('Melt Season Average Albedo'), title('Mýrdalsjökull')
 set(gcf,'color','w');
@@ -49,7 +59,7 @@ set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YM
 set(gca,'xticklabel',{[]})
  
 subplot(4,3,5)
-plot(T.Year,T.Eyjafjallajokull,'k','LineWidth',lw)
+plot(T.dn,T.Eyjafjallajokull,'k','LineWidth',lw)
 %xlabel('Year'), ylabel('Melt Season Average Albedo'), 
 title('Eyjafjallajökull')
 set(gcf,'color','w');
@@ -59,7 +69,7 @@ set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YM
 set(gca,'xticklabel',{[]})
 
 subplot(4,3,6)
-plot(T.Year,T.Drangajokull,'k','LineWidth',lw)
+plot(T.dn,T.Drangajokull,'k','LineWidth',lw)
 %xlabel('Year')
 %ylabel('Melt Season Average Albedo'), 
 title('Drangajökull')
@@ -70,9 +80,9 @@ set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YM
 set(gca,'xticklabel',{[]})
 
 subplot(4,3,7), hold on
-plot(T.Year,T.Eiriksjokull,'k','LineWidth',lw)
-plot(T.Year,T.Torfajokull,'--k','LineWidth',lw)
-plot(T.Year,T.Tungnafellsjokull	,'r','LineWidth',lw)
+plot(T.dn,T.Eiriksjokull,'k','LineWidth',lw)
+plot(T.dn,T.Torfajokull,'--k','LineWidth',lw)
+plot(T.dn,T.Tungnafellsjokull	,'r','LineWidth',lw)
 ylabel('Melt Season Average Albedo')
 xlabel('Year')
 title('EiJ ToJ TuJ')
@@ -82,9 +92,9 @@ box on
 set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YMinorTick','on','YGrid','on','XGrid','on','XColor',[.3 .3 .3],'YColor',[.3 .3 .3],'LineWidth',1);
 
 subplot(4,3,8), hold on
-plot(T.Year,T.Thrandarjokull	,'k','LineWidth',lw)
-plot(T.Year,T.Hofsjokull_Eystri	,'--k','LineWidth',lw)
-plot(T.Year,T.Snaefell	,'r','LineWidth',lw)
+plot(T.dn,T.Thrandarjokull	,'k','LineWidth',lw)
+plot(T.dn,T.Hofsjokull_Eystri	,'--k','LineWidth',lw)
+plot(T.dn,T.Snaefell	,'r','LineWidth',lw)
 xlabel('Year')
 %ylabel('Melt Season Average Albedo'), 
 title('ÞrJ HofsjE Snæ')
@@ -94,31 +104,31 @@ box on
 set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YMinorTick','on','YGrid','on','XGrid','on','XColor',[.3 .3 .3],'YColor',[.3 .3 .3],'LineWidth',1);
 
 subplot(4,3,9), hold on
-plot(T.Year,T.N1,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N2,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N3,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N4,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N5,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N6,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N7,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N8,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N9,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N10,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N11,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N12,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N13,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N14,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N15,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N16,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N17,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N18,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N19,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N20,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N21,'Color',C,'LineWidth',lw)
-plot(T.Year,T.N22,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N1,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N2,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N3,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N4,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N5,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N6,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N7,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N8,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N9,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N10,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N11,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N12,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N13,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N14,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N15,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N16,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N17,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N18,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N19,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N20,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N21,'Color',C,'LineWidth',lw)
+plot(T.dn,T.N22,'Color',C,'LineWidth',lw)
 
 Nmean = (T.N1+T.N2+T.N3+T.N4+T.N5+T.N6+T.N7+T.N8+T.N9+T.N10+T.N11+T.N12+T.N13+T.N14+T.N15+T.N16+T.N17+T.N18+T.N19+T.N20+T.N21+T.N22)/22;
-plot(T.Year,Nmean,'k','LineWidth',lw)
+plot(T.dn,Nmean,'k','LineWidth',lw)
 xlabel('Year')
 %ylabel('Melt Season Average Albedo'), 
 title('Norðurlandsjöklar')
@@ -129,6 +139,6 @@ set(gca,'Box','off','TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YM
 
         
 if printer == 1
-   export_fig([img_dir,'/MSM_ts_',img_name], '-pdf')
+   export_fig([img_dir,'/MM_ts_',img_name], '-pdf')
 else 
 end

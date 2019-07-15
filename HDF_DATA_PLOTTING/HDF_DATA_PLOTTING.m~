@@ -36,10 +36,8 @@ time = DMM(:,1:5);
 img_name = 'Vatnajökull'
 PLOT_Daily_ts(time, data,img_dir,img_name,printer)
 
-data = DMM.Hofsjokull;
-img_name = 'Hofsjokull'
+data = DMM.Vatnajokull;
+time = DMM(:,1:5);
+img_name = 'Vatnajökull'
 PLOT_Daily_ts(time, data,img_dir,img_name,printer)
 
-data = DMM.Langjokull;
-img_name = 'Langjokull'
-PLOT_Daily_ts(time, data,img_dir,img_name,printer)
